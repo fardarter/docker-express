@@ -1,0 +1,74 @@
+/* Normalise buttons/input */
+
+button,
+input {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+button,
+input {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+h1 {
+  color: black;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+ul {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+}
+
+p {
+  margin: 0 0 0 0;
+}
+
+body {
+  margin: 4rem 6rem;
+}
+
+.todolist > * {
+  margin-bottom: 1rem;
+}
+
+.todolist {
+  margin: 2rem 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 40rem;
+}
+.outer-btn {
+  margin: 2rem 0;
+}
+
+.todo-item p {
+  flex-grow: 1;
+}
+
+.edit-form > * + *,
+.todo-item > * + * {
+  margin-left: 1rem;
+}

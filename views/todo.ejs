@@ -1,27 +1,86 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>My todolist</title>
-        <style>
-            a {text-decoration: none; color: black;}
-        </style>
-    </head>
+  <head>
+    <title>My todolist</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
 
-    <body>
-        <h1>My todolist</h1>
-        <ul>
-        <% todolist.forEach(function(todo, index) { %>
-            <li><a href="/todo/delete/<%= index %>">✘</a> <%- todo %></li>
-        <% }); %>
-        </ul>
-
-        <form action="/todo/add/" method="post">
-            <p>
-                <label for="newtodo">What shoud I do?</label>
-                <input type="text" name="newtodo" id="newtodo" autofocus />
-                <input type="submit" />
-            </p>
+  <body>
+    <h1>Todolist</h1>
+    <ul class="todolist">
+      <% todolist.forEach(function(todo, index) { %>
+      <li class="todo-item">
+        <form class="list-btn" action="/todo/delete/<%= index %>" method="get">
+          <button
+            aria-label="delete word"
+            class="level-two-btn delete-btn"
+            type="submit"
+          >
+            ✘
+          </button>
         </form>
-    </body>
+        <p><%- todo %></p>
+        <% if(index !== Number(toEdit)) { %>
+        <form class="list-btn" action="/todo/edit/<%= index %>" method="get">
+          <button
+            aria-label="edit word"
+            class="level-two-btn edit-btn"
+            type="submit"
+          >
+            Edit
+          </button>
+        </form>
+        <% } %> <% if(index === Number(toEdit)) { %>
+        <form class="list-btn edit-form" action="/todo/replace/" method="post">
+          <input
+            aria-label="input for desired edit"
+            type="text"
+            name="revision"
+            id="editentry"
+          />
+          <button
+            aria-label="confirm edited word"
+            class="level-two-btn confirm-btn"
+            type="submit"
+          >
+            Confirm
+          </button>
+          <input
+            type="hidden"
+            id="toedit"
+            name="toedit"
+            value="<%- toEdit %>"
+          />
+        </form>
+        <form class="list-btn" action="/todo/canceledit/" method="get">
+          <button
+            aria-label="cancel edit"
+            class="level-two-btn cancel-btn"
+            type="submit"
+          >
+            Cancel
+          </button>
+        </form>
+        <% } %>
+      </li>
+      <% }); %>
+    </ul>
+    <form class="outer-btn" action="/todo/add/" method="post">
+      <p>
+        <label for="newtodo">Add todo&nbsp;</label>
+        <input type="text" name="newtodo" id="newtodo" autofocus />
+        <button class="level-one-btn add-btn" type="submit">Add</button>
+      </p>
+    </form>
+    <form action="/todo/reset/" method="get">
+      <button
+        class="level-one-btn reset-btn"
+        aria-label="reset form"
+        type="submit"
+      >
+        Reset
+      </button>
+    </form>
+  </body>
 </html>
