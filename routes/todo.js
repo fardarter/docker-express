@@ -1,7 +1,6 @@
 const express = require("express"),
   router = express.Router();
-const bodyParser = require("body-parser");
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const replaceFn = require("./lib/replaceFn");
 
 let todolist = [];
 let toEdit;
@@ -11,12 +10,24 @@ router.get("/", function(req, res) {
 });
 
 /* Adding an item to the to do list */
-router.post("/add/", urlencodedParser, function(req, res) {
+router.post("/add/", function(req, res) {
   if (req.body.newtodo !== "") {
     todolist.push(req.body.newtodo);
     toEdit = undefined;
   }
-  res.redirect("/todo");
+  res.render("../views/todo.ejs", { todolist, toEdit: toEdit });
+});
+
+/* SN, 09/12/2018: Replaces an item in the list */
+router.post("/replace/", function(req, res) {
+  if (
+    req.body.revision !== "" &&
+    Number(req.body.toedit) <= todolist.length - 1
+  ) {
+    todolist = replaceFn({ req, todolist });
+    toEdit = undefined;
+  }
+  res.render("../views/todo.ejs", { todolist, toEdit: toEdit });
 });
 
 /* SN, 09/12/2018 Deletes an item from the to do list and resets the edit action */
@@ -26,20 +37,20 @@ router.get("/delete/:id", function(req, res) {
     /* SN, 09/12/2018: Clears the edit selection  */
     toEdit = undefined;
   }
-  res.redirect("/todo");
+  res.render("../views/todo.ejs", { todolist, toEdit: toEdit });
 });
 
 /* SN, 09/12/2018: Resets the form state*/
 router.get("/reset/", function(req, res) {
   todolist = [];
   toEdit = undefined;
-  res.redirect("/todo");
+  res.render("../views/todo.ejs", { todolist, toEdit: toEdit });
 });
 
 /* SN, 09/12/2018: Cancels an edit */
 router.get("/canceledit/", function(req, res) {
   toEdit = undefined;
-  res.redirect("/todo");
+  res.render("../views/todo.ejs", { todolist, toEdit: toEdit });
 });
 
 /* SN, 09/12/2018: Stores a selected index to edit at */
@@ -47,22 +58,7 @@ router.get("/edit/:id", function(req, res) {
   if (req.params.id !== "") {
     toEdit = req.params.id;
   }
-  res.redirect("/todo");
-});
-
-/* SN, 09/12/2018: Replaces an item in the list */
-router.post("/replace/", urlencodedParser, function(req, res) {
-  if (
-    req.body.revision !== "" &&
-    Number(req.body.toedit) <= todolist.length - 1
-  ) {
-    const localEdit = req.body.toedit;
-    const firstSection = todolist.slice(0, localEdit);
-    const secondSection = todolist.slice(localEdit + 1, todolist.length);
-    todolist = [...firstSection, ...[req.body.revision], ...secondSection];
-    toEdit = undefined;
-  }
-  res.redirect("/todo");
+  res.render("../views/todo.ejs", { todolist, toEdit: toEdit });
 });
 
 module.exports = router;

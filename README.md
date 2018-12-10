@@ -13,6 +13,10 @@
 
 Visit http://localhost:8080 in your browser
 
+### Tests
+
+To run tests, run `npm run jest` in the console at root.
+
 ### High level application requirements
 
 1. Multiple users should be able to view the shared public todo list
@@ -45,11 +49,6 @@ Explain what you have done here and why...
 
   - I've come to believe that dating comments is deeply useful as it allows a follow up reader to weight the comments against how recent they are.
 
-- CSS:
-
-  - Again from an organisational perspective a stylesheet is more manageable than inlining.
-  - Added some styles just for neatness.
-
 - HTML:
 
   - From my knowledge of semantic HTML convention, buttons represent actions while anchor tags represent navigation.
@@ -59,9 +58,13 @@ Explain what you have done here and why...
     enough managing state with mutating arrays and would rather make the routing function more pure.
 
 - Methods:
+
   - Edit feature:
     To make the edit feature work I've added an edit method to select the index of the item to edit and also a way to cancel the edit. This permits me to render the box alongside. I've added a replace method to manage construction/insertion of the new todolist array.
   - Reset:
     Adding reset made this both easier to code and improved (IMO) the user experience.
   - Changing routes:
     Needed some organisation. Everything on `app` smells like a code smell.
+
+  - Testing:
+    - I suppose I should pretend everything went swimmingly. Actually this was really hard. I reorganised the routes to use `.render()` instead of redirect because it was the only way I was able to figure out how to look at the values I was rendering. I'm not overly pleased about testing by DOM lookup either, but give where state is residing none of the functions are pure and I wasn't able to come up with a scheme to make them so. In addition, I wasn't able to get the server to reset for each test, so the sad fact is that my tests here are stateful. The one good things I'll say for myself here is that the coverage is decent and I think I got some of the core needs tested. One comment I'll make is that it doesn't strike me that basic `express` functionality needs testing from something like a code exam as it would surely have been well tested by the organisation.

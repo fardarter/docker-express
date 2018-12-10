@@ -3,6 +3,82 @@
 <html>
   <head>
     <title>My todolist</title>
+    <style>
+      /* Normalise buttons/input */
+
+      button,
+      input {
+        font-family: inherit;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 0;
+      }
+      button,
+      input {
+        overflow: visible;
+      }
+
+      button,
+      select {
+        text-transform: none;
+      }
+
+      button,
+      [type="button"],
+      [type="reset"],
+      [type="submit"] {
+        -webkit-appearance: button;
+      }
+
+      h1 {
+        color: black;
+      }
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+
+      ul {
+        padding: 0 0 0 0;
+        margin: 0 0 0 0;
+      }
+
+      p {
+        margin: 0 0 0 0;
+      }
+
+      body {
+        margin: 4rem 6rem;
+      }
+
+      .todolist > * {
+        margin-bottom: 1rem;
+      }
+
+      .todolist {
+        margin: 2rem 0;
+      }
+
+      .todo-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 40rem;
+      }
+      .outer-btn {
+        margin: 2rem 0;
+      }
+
+      .todo-item p {
+        flex-grow: 1;
+      }
+
+      .edit-form > * + *,
+      .todo-item > * + * {
+        margin-left: 1rem;
+      }
+    </style>
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
 
@@ -20,9 +96,9 @@
             ✘
           </button>
         </form>
-        <p><%- todo %></p>
+        <p id="todo<%- index%>"><%- todo %></p>
         <% if(index !== Number(toEdit)) { %>
-        <form class="list-btn" action="/todo/edit/<%= index %>" method="get">
+        <form action="/todo/edit/<%= index %>" method="get">
           <button
             aria-label="edit word"
             class="level-two-btn edit-btn"
@@ -32,7 +108,7 @@
           </button>
         </form>
         <% } %> <% if(index === Number(toEdit)) { %>
-        <form class="list-btn edit-form" action="/todo/replace/" method="post">
+        <form class="edit-form" action="/todo/replace/" method="post">
           <input
             aria-label="input for desired edit"
             type="text"
@@ -70,17 +146,11 @@
       <p>
         <label for="newtodo">Add todo&nbsp;</label>
         <input type="text" name="newtodo" id="newtodo" autofocus />
-        <button class="level-one-btn add-btn" type="submit">Add</button>
+        <button type="submit">Add</button>
       </p>
     </form>
     <form action="/todo/reset/" method="get">
-      <button
-        class="level-one-btn reset-btn"
-        aria-label="reset form"
-        type="submit"
-      >
-        Reset
-      </button>
+      <button aria-label="reset form" type="submit">Reset</button>
     </form>
   </body>
 </html>
