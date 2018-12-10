@@ -9,13 +9,13 @@
 
 ### Run
 
-`node app.js`
+`node server.js`
 
 Visit http://localhost:8080 in your browser
 
 ### Tests
 
-To run tests, run `npm run jest` in the console at root.
+To run tests, run `npm run test` in the console at root.
 
 ### High level application requirements
 

@@ -36,6 +36,12 @@ describe("Route: /todo/edit/", () => {
       "john"
     );
   });
+  test("GET, /edit/<script>console.log('foo')</script>", async () => {
+    await request(app)
+      .get("/todo/edit/<script>console.log('foo')</script>")
+      .expect(302)
+      .set("Accept", "application/json");
+  });
   test("GET, /edit/1", async () => {
     const response = await request(app)
       .get("/todo/edit/1")

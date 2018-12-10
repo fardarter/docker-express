@@ -37,4 +37,24 @@ describe("Route: /todo/replace/", () => {
       "saul"
     );
   });
+  test("POST, <script>console.log('foo')</script>Outside of tags", async () => {
+    const response = await request(app)
+      .post("/todo/replace/")
+      .send("toedit=1")
+      .send("revision=<script>console.log('foo')</script>Outside of tags")
+      .set("Accept", "application/json");
+    const dom = new JSDOM(response.text);
+    expect(dom.window.document.querySelector("#todo1").textContent).toEqual(
+      "Outside of tags"
+    );
+  });
+  test("POST, <script>console.log('foo')</script>", async () => {
+    const response = await request(app)
+      .post("/todo/replace/")
+      .send("toedit=1")
+      .send("revision=<script>console.log('foo')</script>")
+      .set("Accept", "application/json");
+    const dom = new JSDOM(response.text);
+    expect(dom.window.document.querySelector("#todo1").textContent).toEqual("");
+  });
 });

@@ -12,7 +12,7 @@ router.get("/", function(req, res) {
 /* Adding an item to the to do list */
 router.post("/add/", function(req, res) {
   if (req.body.newtodo !== "") {
-    todolist.push(req.body.newtodo);
+    todolist.push(req.sanitize(req.body.newtodo));
     toEdit = undefined;
   }
   res.render("../views/todo.ejs", { todolist, toEdit: toEdit });
