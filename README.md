@@ -15,7 +15,7 @@ Visit http://localhost:8080 in your browser
 
 ### Docker
 
-To build and run the docker image docker, run `./rundocker.ps1` in console. Note, this will stop any other instances by the same name before restarting. When the image is built and running, the app should be available at `http://localhost:5000`. See notes for explanation of the second dockerfile.
+To build and run the docker image, run `./rundocker.ps1` in console. Note, this will stop any other instances by the same name before restarting. When the container is built and running, the app should be available at `http://localhost:5000`.
 
 ### Tests
 
@@ -51,7 +51,7 @@ Explain what you have done here and why...
 
 - Comments:
 
-  - I've come to believe that dating comments is deeply useful as it allows a follow up reader to weight the comments against how recent they are.
+  I've come to believe that dating comments is deeply useful as it allows a follow up reader to weight the comments against how recent they are.
 
 - HTML:
 
@@ -71,4 +71,8 @@ Explain what you have done here and why...
     Needed some organisation. Everything on `app` smells like a code smell.
 
   - Testing:
+
     - I suppose I should pretend everything went swimmingly. Actually this was really hard. I reorganised the routes to use `.render()` instead of redirect because it was the only way I was able to figure out how to look at the values I was rendering. I'm not overly pleased about testing by DOM lookup either, but give where state is residing none of the functions are pure and I wasn't able to come up with a scheme to make them so. In addition, I wasn't able to get the server to reset for each test, so the sad fact is that my tests here are stateful. The one good things I'll say for myself here is that the coverage is decent and I think I got some of the core needs tested. One comment I'll make is that it doesn't strike me that basic `express` functionality needs testing from something like a code exam as it would surely have been well tested by the organisation.
+
+  - Docker and CircleCi:
+    So, there's a CircleCi config file in the project because I nearly got this thing deployed with a very simple CI/CD pipeline (very simple – just having a task definition build a container into the loadbalancer here: `http://lb01-2117251938.us-west-2.elb.amazonaws.com/`). Alas, I've not managed to get it working for this application. I did, however, get it working for another, so to show that it does in fact work (a little wobbly but still), I've included a second dockerfile (`AltDockerfile`) for a basic application that should deploy on code push. I'll share repo contributor rights with Dewald and/or whomeever you think should have them so that it can be proven that it does in fact work.
