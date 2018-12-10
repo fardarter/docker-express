@@ -13,6 +13,10 @@
 
 Visit http://localhost:8080 in your browser
 
+### Docker
+
+To build and run the docker image docker, run `./rundocker.ps1` in console. Note, this will stop any other instances by the same name before restarting. When the image is built and running, the app should be available at `http://localhost:5000`. See notes for explanation of the second dockerfile.
+
 ### Tests
 
 To run tests, run `npm run test` in the console at root.
